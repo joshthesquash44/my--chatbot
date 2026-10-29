@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My AI Chatbot</title>
+    <style>
+        body {
+            background: #171b2e;
+            color: white;
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        h1 { color: #92a5ff; text-align: center; }
+        #messages {
+            height: 350px;
+            overflow-y: auto;
+            background: #252a40;
+            padding: 15px;
+            border-radius: 12px;
+        }
+        .message {
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            overflow-wrap: anywhere;
+        }
+        .user { background: #4659c9; text-align: right; }
+        .bot { background: #373d56; }
+        form { display: flex; gap: 8px; margin-top: 12px; }
+        input {
+            flex: 1;
+            min-width: 0;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+        }
+        button {
+            padding: 12px 18px;
+            background: #667aff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>🤖 My AI Chatbot</h1>
+
+    <div id="messages">
+        <div class="message bot">Bot: Hey! What's up?</div>
+    </div>
+
+    <form id="chat-form">
+        <input id="message" placeholder="Type a message..." required>
+        <button type="submit">Send</button>
+    </form>
+
+    <script>
+        const form = document.getElementById("chat-form");
+        const input = document.getElementById("message");
+        const messages = document.getElementById("messages");
+
+        function addMessage(text, sender) {
+            const div = document.createElement("div");
+            div.className = "message " + sender;
+            div.textContent =
+                (sender === "user" ? "You: " : "Bot: ") + text;
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const message = input.value.trim();
+            if (!message) return;
+
+            addMessage(message, "user");
+            input.value = "";
+
+            try {
+                const response = await fetch("/chat", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({message: message})
+                });
+
+                if (!response.ok) throw new Error("Request failed");
+                const data = await response.json();
+                addMessage(data.reply, "bot");
+            } catch (error) {
+                addMessage(
+                    "I couldn't connect to the chatbot. Check the VS Code terminal.",
+                    "bot"
+                );
+            }
+        });
+    </script>
+</body>
+</html>
