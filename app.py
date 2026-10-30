@@ -8,6 +8,10 @@ from sklearn.naive_bayes import MultinomialNB
 
 app = Flask(__name__)
 
+@app.route("/")
+def home():
+    return render_template("index.html")
+
 app.secret_key = os.environ.get(
     "SECRET_KEY", "change-this-development-key"
 )
