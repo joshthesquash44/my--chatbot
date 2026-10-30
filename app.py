@@ -126,7 +126,7 @@ labels = [
     "goodbye"
 ]
 
-vecotizer = CountVectorizer()
+vecorizer = CountVectorizer()
 X = vectorizer.fit_transform(messages)
 
 ai = MultinomialNB()
