@@ -361,11 +361,11 @@ def get_bot_reply(message):
         return "Sure! Let's try again. What would you like to do?"
 
     elif category == "reaction":
-        return random.choice[
+        return random.choice([
             "Thanks!",
             "Glad you think so!",
-            "Awesome! 😎"
-        ]
+            "Awesome!"
+        ])
 
     if "your name" in message_lower or "who are you" in message_lower:
         return "I'm your AI chatbot, built with Python and Flask!"
