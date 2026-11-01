@@ -232,76 +232,13 @@ def get_bot_reply(message):
                 "Let's play! I'm thinking of a number between 1 and "
                 "1,000. Type your guess!"
             )
-        if message_lower = "black jack.strip("?, !")
-            import random
-            print("GAMBLE BOT 9,000")
-            choice = "hit"
-            command = "taxes"
-            evil_total=0
-            jack = ten = queen = king = 10
-            ace = 11
-            two = 2
-            three = 3
-            four = 4
-            five = 5
-            six = 6
-            seven = 7
-            eight = 8
-            nine = 9
-            cards = [two,three,four,five,six,seven,eight,nine,ten,jack,queen,king,ace]
-            picked_card1.strip() = random.choice(cards)
-            total= picked_card1
-            print (f"your card is {picked_card1}")
-            evil_card1 = random.choice(cards)
-            evil_total= evil_card1
-            print (f"the dealers card is {evil_card1}")
-            
-            while True:
-                if choice == "stand":
-                    print ("the dealer goes again")
-                else:
-                    choice = input("hit or stand?:   ")
-            
-            
-                if choice == "hit":
-                    picked_card2 = random.choice(cards)
-                    total = (total+picked_card2)
-                    print (f"your card is {picked_card2} so your total is {total}")
-                if evil_total>total:
-                    print (f"the dealer stands and his final total is {evil_total}.")
-                    command = ("break")
-                else:
-                        
-                    evil_card2 = random.choice(cards)
-                    evil_total = (evil_total+evil_card2)
-                    print (f"the dealers card is {evil_card2} so their total is {evil_total}")
-                if evil_total>21:
-                    if total>21:
-                        print ("you tie")
-                        break
-                    else:
-                        print ("you win")
-                        break
-                if total>21:
-                    if evil_total>21:
-                        print ("Its a tie!!!")
-                        break
-                    else:
-                        print ("you lose")
-                        break
-                if command == "break":
-                    if total>evil_total:
-                        print ("you win")
-                    if evil_total>total:
-                        print ("you lose!!!!!!!!!!")
-                    break
-
+        
         if message_lower in ["quit", "cancel", "no"]:
             session.pop("mode", None)
             return "Okay! Maybe we can play another time."
 
         return (
-            "Right now, I have a guessing game! and black jack game  "
+            "Right now, I have a guessing game!"
             "Type 'guessing game' to play, Black jack, or 'quit' to stop."
         )
 
