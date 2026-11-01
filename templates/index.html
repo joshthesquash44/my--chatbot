@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kodex AI Chatbot</title>
+
     <style>
         body {
             background: #333333;
@@ -13,23 +14,42 @@
             margin: 40px auto;
             padding: 20px;
         }
-        h1 { color: #92a5ff; text-align: center; }
+
+        h1 {
+            color: #92a5ff;
+            text-align: center;
+        }
+
         #messages {
             height: 350px;
             overflow-y: auto;
-            background: #26347;
+            background: #263747;
             padding: 15px;
             border-radius: 12px;
         }
+
         .message {
             padding: 12px;
             margin: 8px 0;
             border-radius: 8px;
             overflow-wrap: anywhere;
         }
-        .user { background: #4659c9; text-align: right; }
-        .bot { background: #373d56; }
-        form { display: flex; gap: 8px; margin-top: 12px; }
+
+        .user {
+            background: #4659c9;
+            text-align: right;
+        }
+
+        .bot {
+            background: #373d56;
+        }
+
+        form {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
         input {
             flex: 1;
             min-width: 0;
@@ -37,6 +57,7 @@
             border-radius: 8px;
             border: none;
         }
+
         button {
             padding: 12px 18px;
             background: #667aff;
@@ -45,10 +66,29 @@
             border-radius: 8px;
             cursor: pointer;
         }
+        
+        .about-button {
+            display: block;
+            width: fit-content;
+            margin: 15px auto;
+            padding: 12px 18px;
+            background: #667aff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .about-button:hover {
+            background: #5268ed;
+        }
     </style>
 </head>
 <body>
     <h1>Kodex AI Chatbot</h1>
+
+    <a href="/about" class="about-button">
+    About Kodex AI
+</a>
 
     <div id="messages">
         <div class="message bot">KCAI: Why hello there friend</div>
