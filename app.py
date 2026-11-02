@@ -16,6 +16,17 @@ def home():
 def about():
     return render_template("about.html")
 
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+    if request.method == "POST":
+        name = request.form.get("name", "")
+        email = request.form.get("email", "")
+        message = request.form.get("message", "")
+
+        return "Thanks for contacting Kodex AI! Your form was received."
+
+    return render_template("contact.html")
+
 app.secret_key = os.environ.get(
     "SECRET_KEY", "change-this-development-key"
 )
