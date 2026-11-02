@@ -155,7 +155,7 @@ def get_bot_reply(message):
     """Handle one message from a website visitor."""
     message_lower = clean_text(message)
     mode = session.get("mode")
-
+    
     if mode == "joke_answer":
         correct_answer = session.get("joke_answer", "")
 
@@ -301,17 +301,22 @@ def get_bot_reply(message):
             "Want to tell me a little more about it?"
         )
 
-    if message_lower in ["good morning", "good morning"]:
+    if message_lower in ["tell me a joke", "say something funny", "joke"]:
+    category = "joke"
+
+    elif message_lower == "good morning":
         category = "good_morning"
+    
     elif message_lower == "good afternoon":
         category = "good_afternoon"
+    
     elif message_lower == "good night":
         category = "good_night"
+    
     else:
         new_message = vectorizer.transform([message])
         category = ai.predict(new_message)[0]
-    
-
+        
     if category == "good_morning":
         return "Good morning! Ready to code today?"
 
