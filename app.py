@@ -301,15 +301,15 @@ elif category == "good_afternoon":
         if number > secret_number:
             return "Too high! Guess again."
 
-        attempts = session["attempts"]
-        session.pop("mode", None)
-        session.pop("game_number", None)
-        session.pop("attempts", None)
-
-        return (
-            f"You beat my game in {attempts} attempts! 🎉 "
-            "Want to play again? Type 'let's play a game'."
-        )
+            attempts = session["attempts"]
+            session.pop("mode", None)
+            session.pop("game_number", None)
+            session.pop("attempts", None)
+    
+            return (
+                f"You beat my game in {attempts} attempts! 🎉 "
+                "Want to play again? Type 'let's play a game'."
+            )
 
     if mode == "help_followup":
         session.pop("mode", None)
