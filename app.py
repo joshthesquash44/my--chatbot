@@ -309,7 +309,7 @@ elif category == "good_afternoon":
         )
 
     if message_lower in ["tell me a joke", "say something funny", "joke"]:
-    category = "joke"
+        category = "joke"
 
     elif message_lower == "good morning":
         category = "good_morning"
