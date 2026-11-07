@@ -1,115 +1,253 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kodex AI Chatbot</title>
+    <title>Kodex AI | Corporate</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            background: #333333;
+            margin: 0;
+            min-height: 100vh;
+            background: #080d19;
             color: white;
             font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* TOP NAVIGATION */
+
+        nav {
+            width: 100%;
+            padding: 18px 7%;
+            background: #101a2c;
+            border-bottom: 1px solid #243b60;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            color: #55c8ff;
+            font-size: 23px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #d7eaff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border: 1px solid #31517c;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: #1679c9;
+            border-color: #55c8ff;
+            box-shadow: 0 0 12px #168bdc;
+        }
+
+        /* MAIN CONTENT */
+
+        main {
+            width: 90%;
+            max-width: 850px;
+            margin: 45px auto;
+            flex: 1;
         }
 
         h1 {
-            color: #92a5ff;
             text-align: center;
+            color: #55c8ff;
+            font-size: 38px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px #168bdc;
         }
 
+        .subtitle {
+            text-align: center;
+            color: #9bb4d2;
+            margin-bottom: 35px;
+        }
+
+        /* CHAT WINDOW */
+
         #messages {
-            height: 350px;
+            height: 400px;
             overflow-y: auto;
-            background: #263747;
-            padding: 15px;
-            border-radius: 12px;
+            background: #101a2c;
+            padding: 18px;
+            border: 1px solid #29476e;
+            border-radius: 14px;
+            box-shadow: 0 0 20px rgba(30, 144, 255, 0.12);
         }
 
         .message {
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 8px;
+            padding: 13px;
+            margin: 10px 0;
+            border-radius: 10px;
             overflow-wrap: anywhere;
+            line-height: 1.5;
         }
 
         .user {
-            background: #4659c9;
+            background: #174b83;
             text-align: right;
+            border: 1px solid #328fe0;
         }
 
         .bot {
-            background: #373d56;
+            background: #1b2940;
+            border: 1px solid #31517c;
         }
+
+        /* MESSAGE INPUT */
 
         form {
             display: flex;
-            gap: 8px;
-            margin-top: 12px;
+            gap: 10px;
+            margin-top: 15px;
         }
 
         input {
             flex: 1;
             min-width: 0;
-            padding: 12px;
+            padding: 14px;
             border-radius: 8px;
-            border: none;
+            border: 1px solid #31517c;
+            background: #101a2c;
+            color: white;
+            outline: none;
+            font-size: 15px;
+        }
+
+        input:focus {
+            border-color: #55c8ff;
+            box-shadow: 0 0 10px #1679c9;
         }
 
         button {
-            padding: 12px 18px;
-            background: #667aff;
+            padding: 14px 22px;
+            background: #1679c9;
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-        }
-        
-        .about-button {
-            display: block;
-            width: fit-content;
-            margin: 15px auto;
-            padding: 12px 18px;
-            background: #667aff;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
         }
 
-        .about-button:hover {
-            background: #5268ed;
+        button:hover {
+            background: #269fff;
+            box-shadow: 0 0 15px #168bdc;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 22px 10px;
+            background: #101a2c;
+            border-top: 1px solid #243b60;
+            color: #8da5c2;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        footer .version {
+            color: #55c8ff;
+            font-weight: bold;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+            nav {
+                justify-content: center;
+            }
+
+            .nav-links {
+                justify-content: center;
+            }
+
+            h1 {
+                font-size: 29px;
+            }
+
+            main {
+                margin: 30px auto;
+            }
+
+            #messages {
+                height: 350px;
+            }
         }
     </style>
 </head>
+
 <body>
-    <h1>Kodex AI Chatbot</h1>
 
-    <a href="/about" class="about-button">
-    About Kodex AI
-</a>
+    <!-- TOP NAVIGATION -->
+    <nav>
+        <div class="logo">KODEX AI</div>
 
-<a href="https://canva.link/n39sa1xtbcwtzr7"
-   class="about-button"
-   target="_blank"
-   rel="noopener noreferrer">
-    View Our Canva Design
-</a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="https://canva.link/n39sa1xtbcwtzr7"
+               target="_blank"
+               rel="noopener noreferrer">Our Design</a>
+        </div>
+    </nav>
 
-    <a href="/contact" class="about-button">
-        Contact Us
-</a>    
-    
-    <div id="messages">
-        <div class="message bot">KCAI: Why hello there friend</div>
-    </div>
+    <!-- CHATBOT -->
+    <main>
+        <h1>KODEX AI</h1>
 
-    <form id="chat-form">
-        <input id="message" placeholder="Type a message..." required>
-        <button type="submit">Send</button>
-    </form>
+        <p class="subtitle">
+            Your Next-Generation AI Assistant
+        </p>
 
+        <div id="messages">
+            <div class="message bot">
+                KCAI: Why hello there friend
+            </div>
+        </div>
+
+        <form id="chat-form">
+            <input
+                id="message"
+                placeholder="Type a message..."
+                required
+            >
+            <button type="submit">Send</button>
+        </form>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="version">KODEX AI | Version 1.0.0</div>
+        <div>© 2026 Kodex Corporate. All rights reserved.</div>
+    </footer>
+
+    <!-- CHATBOT JAVASCRIPT -->
     <script>
         const form = document.getElementById("chat-form");
         const input = document.getElementById("message");
@@ -126,6 +264,7 @@
 
         form.addEventListener("submit", async function(event) {
             event.preventDefault();
+
             const message = input.value.trim();
             if (!message) return;
 
@@ -139,9 +278,13 @@
                     body: JSON.stringify({message: message})
                 });
 
-                if (!response.ok) throw new Error("Request failed");
+                if (!response.ok) {
+                    throw new Error("Request failed");
+                }
+
                 const data = await response.json();
                 addMessage(data.reply, "bot");
+
             } catch (error) {
                 addMessage(
                     "I couldn't connect to the chatbot.",
@@ -150,5 +293,7 @@
             }
         });
     </script>
+
 </body>
 </html>
+```
