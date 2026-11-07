@@ -155,13 +155,6 @@ def get_bot_reply(message):
     """Handle one message from a website visitor."""
     message_lower = clean_text(message)
     mode = session.get("mode")
-
-if category == "good_morning":
-    return "Good morning! Ready to code today?"
-
-elif category == "good_afternoon":
-    return "Good night! ready to code tommorow"
-
     
     if mode == "joke_answer":
         correct_answer = session.get("joke_answer", "")
