@@ -199,7 +199,7 @@ def get_bot_reply(message):
         if message_lower == clean_text(answer):
             session.pop("mode", None)
             session.pop("joke_answer", None)
-            return "Correct! 🎉"
+            return "Correct!"
 
         return "Not quite! Try again, or type quit to stop."
 
