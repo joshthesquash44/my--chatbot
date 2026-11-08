@@ -149,7 +149,41 @@ ai.fit(X, labels)
 def clean_text(text):
     """Normalize text for comparing answers and commands."""
     return re.sub(r"[^a-z0-9\s]", "", text.lower()).strip()
+    
+def create_deck():
+    ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10",
+             "J", "Q", "K", "A"]
+    suits = ["♠", "♥", "♦", "♣"]
 
+    deck = [rank + suit for rank in ranks for suit in suits]
+    random.shuffle(deck)
+    return deck
+
+
+def blackjack_value(hand):
+    total = 0
+    aces = 0
+
+    for card in hand:
+        rank = card[:-1]
+
+        if rank == "A":
+            total += 11
+            aces += 1
+        elif rank in ["J", "Q", "K"]:
+            total += 10
+        else:
+            total += int(rank)
+
+    while total > 21 and aces > 0:
+        total -= 10
+        aces -= 1
+
+    return total
+
+
+def show_hand(hand):
+    return " ".join(hand) + f" (Total: {blackjack_value(hand)})"
 
 def get_bot_reply(message):
     """Handle one message from a website visitor."""
@@ -234,15 +268,108 @@ def get_bot_reply(message):
         session["mode"] = "story_choice"
         return "Please type yes or no. Do you want a spooky story?"
 
-    if mode == "game_choice":
+
+    
+      if mode == "blackjack":
+        if message_lower == "quit":
+            session.pop("mode", None)
+            session.pop("deck", None)
+            session.pop("player_hand", None)
+            session.pop("dealer_hand", None)
+            return "Blackjack ended! Want to play another game?"
+
+        player_hand = session["player_hand"]
+        dealer_hand = session["dealer_hand"]
+        deck = session["deck"]
+
+        if message_lower == "hit":
+            if not deck:
+                return "No cards left! Type stand to finish."
+
+            player_hand.append(deck.pop())
+            player_total = blackjack_value(player_hand)
+
+            if player_total > 21:
+                session.pop("mode", None)
+                session.pop("deck", None)
+                session.pop("player_hand", None)
+                session.pop("dealer_hand", None)
+
+                return "Bust! You went over 21. Better luck next time!"
+
+            return (
+                "Your cards: " + show_hand(player_hand) +
+                ". Type hit or stand."
+            )
+
+        if message_lower == "stand":
+            while blackjack_value(dealer_hand) < 17 and deck:
+                dealer_hand.append(deck.pop())
+
+            player_total = blackjack_value(player_hand)
+            dealer_total = blackjack_value(dealer_hand)
+
+            result = (
+                "Your cards: " + show_hand(player_hand) +
+                "\nDealer cards: " + show_hand(dealer_hand) + "\n"
+            )
+
+            if dealer_total > 21:
+                result += "Dealer busts! You win!"
+            elif player_total > dealer_total:
+                result += "You win!"
+            elif player_total < dealer_total:
+                result += "Dealer wins!"
+            else:
+                result += "It's a draw!"
+
+            session.pop("mode", None)
+            session.pop("deck", None)
+            session.pop("player_hand", None)
+            session.pop("dealer_hand", None)
+
+            return result
+
+        return "Type hit to draw another card or stand to finish."
+              
+   if mode == "game_choice":
         if message_lower in ["guessing game", "guess", "guessing"]:
             session["mode"] = "guessing_game"
             session["game_number"] = random.randint(1, 1000)
             session["attempts"] = 0
+
             return (
-                "Let's play! I'm thinking of a number between 1 and "
-                "1,000. Type your guess!"
+                "Let's play! I'm thinking of a number between "
+                "1 and 1,000. Type your guess!"
             )
+
+        if message_lower in ["blackjack", "black jack"]:
+            deck = create_deck()
+
+            player_hand = [deck.pop(), deck.pop()]
+            dealer_hand = [deck.pop(), deck.pop()]
+
+            session["mode"] = "blackjack"
+            session["deck"] = deck
+            session["player_hand"] = player_hand
+            session["dealer_hand"] = dealer_hand
+
+            return (
+                "Welcome to Blackjack!\n"
+                "Your cards: " + show_hand(player_hand) +
+                "\nDealer's visible card: " + dealer_hand[0] +
+                "\nType hit or stand!"
+            )
+
+        if message_lower in ["quit", "cancel", "no"]:
+            session.pop("mode", None)
+            return "Okay! Maybe we can play another time."
+
+        return (
+            "Choose a game:\n"
+            "Type 'guessing game' or 'blackjack'. "
+            "Type 'quit' to stop."
+        )
         
         if message_lower in ["quit", "cancel", "no"]:
             session.pop("mode", None)
