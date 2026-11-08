@@ -270,7 +270,7 @@ def get_bot_reply(message):
 
 
     
-      if mode == "blackjack":
+    if mode == "blackjack":
         if message_lower == "quit":
             session.pop("mode", None)
             session.pop("deck", None)
@@ -331,8 +331,8 @@ def get_bot_reply(message):
             return result
 
         return "Type hit to draw another card or stand to finish."
-              
-   if mode == "game_choice":
+                
+    if mode == "game_choice":
         if message_lower in ["guessing game", "guess", "guessing"]:
             session["mode"] = "guessing_game"
             session["game_number"] = random.randint(1, 1000)
