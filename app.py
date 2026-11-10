@@ -287,6 +287,8 @@ def get_bot_reply(message):
                 return "No cards left! Type stand to finish."
 
             player_hand.append(deck.pop())
+            session["player_hand"] = player_hand
+            session["deck"] = deck
             player_total = blackjack_value(player_hand)
 
             if player_total > 21:
